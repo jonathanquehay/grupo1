@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glamour Grooming | Peluquería Canina Managua</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10b981', // Emerald-500 (Frescura/Higiene)
+                        secondary: '#059669', // Emerald-600
+                        accent: '#f59e0b', // Amber-500 (Juguetón)
+                        background: '#f0fdfa', // Teal-50 (Suave)
+                        text: '#374151', // Gray-700
+                        dark: '#1f2937' // Gray-800
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                        heading: ['Quicksand', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #f0fdfa; color: #374151; }
+        .page-section { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+        .page-section.active { opacity: 1; transform: translateY(0); }
+        
+        h1, h2, h3, h4, .font-heading { font-family: 'Quicksand', sans-serif; font-weight: 700; }
+
+        .btn-primary {
+            background: #10b981;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.4); }
+
+        .floating-whatsapp {
+            position: fixed; bottom: 2rem; right: 2rem; z-index: 50;
+            background: #25D366; color: white; width: 65px; height: 65px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .floating-whatsapp:hover { transform: scale(1.1); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-40 bg-white/90 backdrop-blur shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-paw text-primary text-3xl"></i>
+                <span class="font-heading font-bold text-2xl text-dark">Glamour<span class="text-primary">Grooming</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 font-bold">
+                <a href="#inicio" class="hover:text-primary transition-colors">Inicio</a>
+                <a href="#servicios" class="hover:text-primary transition-colors">Servicios</a>
+                <a href="#contacto" class="hover:text-primary transition-colors">Contacto</a>
+            </div>
+            <a href="https://wa.me/50586771459" target="_blank" class="bg-dark text-white px-6 py-2 rounded-full font-bold hover:bg-primary transition-colors">Agendar Cita</a>
+        </div>
+    </nav>
+
+    <a href="https://wa.me/50586771459" target="_blank" class="floating-whatsapp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <main class="pt-20">
+        <!-- Hero -->
+        <section id="inicio" class="page-section active py-20 md:py-32">
+            <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <h1 class="text-5xl md:text-7xl font-bold text-dark mb-6">Porque tu mejor amigo merece <span class="text-primary">lo mejor.</span></h1>
+                    <p class="text-xl text-text mb-8">Peluquería canina especializada en Managua. Tratamos a tu mascota con paciencia, amor y mucha higiene.</p>
+                    <a href="https://wa.me/50586771459" class="btn-primary">Reservar ahora</a>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=800" class="rounded-3xl shadow-2xl" alt="Perro feliz">
+                </div>
+            </div>
+        </section>
+
+        <!-- Servicios -->
+        <section id="servicios" class="page-section py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-16">Nuestros Servicios</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="p-8 bg-background rounded-2xl border-2 border-transparent hover:border-primary transition-all">
+                        <i class="fa-solid fa-bath text-4xl text-primary mb-6"></i>
+                        <h3 class="text-2xl font-bold mb-4">Baño Completo</h3>
+                        <p>Baño con shampoo premium, limpieza de oídos y secado profesional.</p>
+                    </div>
+                    <div class="p-8 bg-background rounded-2xl border-2 border-transparent hover:border-primary transition-all">
+                        <i class="fa-solid fa-scissors text-4xl text-primary mb-6"></i>
+                        <h3 class="text-2xl font-bold mb-4">Corte de Estilo</h3>
+                        <p>Corte según la raza o el estilo que prefieras para tu peludo.</p>
+                    </div>
+                    <div class="p-8 bg-background rounded-2xl border-2 border-transparent hover:border-primary transition-all">
+                        <i class="fa-solid fa-paw text-4xl text-primary mb-6"></i>
+                        <h3 class="text-2xl font-bold mb-4">Corte de Uñas</h3>
+                        <p>Cuidado meticuloso para evitar molestias en sus patitas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto -->
+        <section id="contacto" class="page-section py-24">
+            <div class="max-w-4xl mx-auto px-4 bg-dark text-white p-12 rounded-3xl text-center">
+                <h2 class="text-4xl font-bold mb-8">¿Listo para una cita?</h2>
+                <p class="text-xl mb-10">Estamos ubicados en Managua. Escríbenos directamente y coordinamos el mejor horario para tu mascota.</p>
+                <a href="https://wa.me/50586771459" class="bg-primary text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-primary transition-all">Hablar con Glamour Grooming</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 text-center text-text/60">
+        <p>&copy; 2026 Glamour Grooming Managua. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        // Intersection observer for section activation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.page-section').forEach(sec => observer.observe(sec));
+    </script>
+</body>
+</html>

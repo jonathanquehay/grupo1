@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArualDent | Clínica Odontológica en Managua</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0ea5e9', // sky-500 (Azul médico fresco)
+                        secondary: '#0284c7', // sky-600
+                        accent: '#38bdf8', // sky-400
+                        background: '#f8fafc', // slate-50 (Blanco clínico)
+                        surface: '#ffffff',
+                        text: '#334155', // slate-700
+                        heading: '#0f172a' // slate-900
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #f8fafc; color: #334155; }
+        
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Poppins', sans-serif;
+            color: #0f172a;
+        }
+
+        .btn-primary {
+            background-color: #0ea5e9;
+            color: #ffffff;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.3);
+        }
+        .btn-primary:hover {
+            background-color: #0284c7;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+        }
+
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 50;
+            transition: transform 0.3s ease;
+            animation: pulse-green 2s infinite;
+        }
+        .floating-whatsapp:hover {
+            transform: scale(1.1);
+            animation: none;
+        }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        .medical-pattern {
+            background-image: radial-gradient(#0ea5e9 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.05;
+        }
+
+        /* Success Message Modal */
+        #success-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+        #success-modal.active { display: flex; }
+    </style>
+</head>
+<body class="antialiased font-sans">
+
+    <nav class="fixed w-full z-40 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary text-xl">
+                        <i class="fa-solid fa-tooth"></i>
+                    </div>
+                    <span class="font-heading font-bold text-2xl text-heading">Arual<span class="text-primary">Dent</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#servicios" class="text-text hover:text-primary font-medium transition-colors">Servicios</a>
+                    <a href="#beneficios" class="text-text hover:text-primary font-medium transition-colors">Beneficios</a>
+                    <a href="#ubicacion" class="text-text hover:text-primary font-medium transition-colors">Ubicación</a>
+                    <div class="flex items-center gap-2 text-text font-medium border-l border-gray-200 pl-6">
+                        <i class="fa-solid fa-phone text-primary"></i>
+                        <span>+505 8402 6370</span>
+                    </div>
+                    <a href="https://wa.me/50584026370?text=Hola,%20deseo%20agendar%20una%20cita%20odontológica." target="_blank" class="btn-primary text-sm px-6 py-2">
+                        Agendar Cita
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-heading focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="#servicios" class="mobile-link block px-3 py-3 text-text font-medium hover:bg-gray-50 rounded-lg">Servicios</a>
+                <a href="#beneficios" class="mobile-link block px-3 py-3 text-text font-medium hover:bg-gray-50 rounded-lg">Beneficios</a>
+                <a href="#ubicacion" class="mobile-link block px-3 py-3 text-text font-medium hover:bg-gray-50 rounded-lg">Ubicación</a>
+                <a href="https://wa.me/50584026370" target="_blank" class="block w-full text-center mt-4 bg-primary text-white font-bold py-3 rounded-lg">
+                    <i class="fa-brands fa-whatsapp mr-2"></i> WhatsApp Directo
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <a href="https://wa.me/50584026370?text=Hola,%20tengo%20una%20consulta%20y%20me%20gustaría%20visitar%20la%20clínica." target="_blank" class="floating-whatsapp" aria-label="Contactar por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <main class="pt-20">
+
+        <section class="relative bg-background overflow-hidden min-h-[90vh] flex items-center">
+            <div class="absolute inset-0 medical-pattern z-0"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-12 lg:py-0">
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    
+                    <!-- Text Content -->
+                    <div class="w-full lg:w-1/2" data-aos="fade-right">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-secondary font-medium text-sm mb-6">
+                            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                            Atención Odontológica en Managua
+                        </div>
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                            Sonrisas sanas,<br>tratamientos <span class="text-primary">sin dolor.</span>
+                        </h1>
+                        <p class="text-lg text-text/80 mb-8 max-w-lg leading-relaxed">
+                            En ArualDent combinamos tecnología moderna con un trato humano y personalizado. Especialistas en estética, sedación dental y emergencias.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="https://wa.me/50584026370" target="_blank" class="btn-primary py-4 text-lg w-full sm:w-auto">
+                                <i class="fa-regular fa-calendar-check"></i> Reservar Evaluación
+                            </a>
+                            <a href="#servicios" class="bg-white text-heading border border-gray-200 hover:border-primary hover:text-primary px-8 py-4 rounded-full font-bold transition-all text-center w-full sm:w-auto">
+                                Ver Servicios
+                            </a>
+                        </div>
+                        
+                        <!-- Trust Indicators -->
+                        <div class="mt-10 flex items-center gap-6 pt-8 border-t border-gray-200">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-shield-halved text-2xl text-primary"></i>
+                                <span class="text-sm font-medium text-text">Atención<br>Garantizada</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-bed-pulse text-2xl text-primary"></i>
+                                <span class="text-sm font-medium text-text">Opción de<br>Sedación</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Image -->
+                    <div class="w-full lg:w-1/2 relative" data-aos="fade-left">
+                        <div class="absolute -inset-4 bg-primary/20 rounded-full blur-3xl opacity-50 z-0"></div>
+                        <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=1000" alt="Paciente sonriendo en clínica dental" class="rounded-3xl shadow-2xl relative z-10 w-full object-cover h-[500px] border-4 border-white">
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute bottom-8 -left-8 bg-white p-4 rounded-2xl shadow-xl z-20 flex items-center gap-4 animate-bounce" style="animation-duration: 3s;">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-xl">
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-text/60 font-medium">Pacientes Felices</p>
+                                <p class="font-heading font-bold text-lg">Atención 5 Estrellas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios" class="py-24 bg-white relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-primary font-bold tracking-wider uppercase text-sm mb-2">Especialidades</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold">Nuestros Servicios Dentales</h3>
+                    <div class="w-20 h-1 bg-primary mx-auto mt-6 rounded-full"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Service 1 -->
+                    <div class="bg-background rounded-2xl p-8 hover:shadow-xl transition-all border border-gray-100 group" data-aos="fade-up" data-aos-delay="0">
+                        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-primary text-3xl mb-6 shadow-sm group-hover:bg-primary group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-tooth"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Odontología Estética</h4>
+                        <p class="text-text/70 text-sm leading-relaxed mb-4">Blanqueamientos, carillas y diseño de sonrisa para que recuperes la confianza al sonreír.</p>
+                    </div>
+                    
+                    <!-- Service 2 -->
+                    <div class="bg-background rounded-2xl p-8 hover:shadow-xl transition-all border border-gray-100 group" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-primary text-3xl mb-6 shadow-sm group-hover:bg-primary group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-stethoscope"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Tratamientos Integrales</h4>
+                        <p class="text-text/70 text-sm leading-relaxed mb-4">Limpiezas profundas, calzas, extracciones y cuidado preventivo para toda la familia.</p>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="bg-background rounded-2xl p-8 hover:shadow-xl transition-all border border-gray-100 group" data-aos="fade-up" data-aos-delay="200">
+                        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-primary text-3xl mb-6 shadow-sm group-hover:bg-primary group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-bed"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Sedación Dental</h4>
+                        <p class="text-text/70 text-sm leading-relaxed mb-4">¿Miedo al dentista? Realizamos procedimientos bajo sedación para una experiencia 100% relajante.</p>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="bg-background rounded-2xl p-8 hover:shadow-xl transition-all border border-primary/20 bg-primary/5 group" data-aos="fade-up" data-aos-delay="300">
+                        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-red-500 text-3xl mb-6 shadow-sm group-hover:bg-red-500 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-truck-medical"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3 text-red-600">Emergencias</h4>
+                        <p class="text-text/70 text-sm leading-relaxed mb-4">Atención prioritaria para dolor agudo, fracturas dentales o trauma. Llámanos de inmediato.</p>
+                        <a href="tel:+50584026370" class="text-red-500 font-bold text-sm hover:underline"><i class="fa-solid fa-phone mr-1"></i> Llamar Ahora</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="beneficios" class="py-24 bg-heading text-white relative overflow-hidden">
+            <div class="absolute inset-0 z-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="flex flex-col lg:flex-row items-center gap-16">
+                    <div class="w-full lg:w-1/2" data-aos="fade-right">
+                        <h2 class="text-primary font-bold tracking-wider uppercase text-sm mb-2">ArualDent</h2>
+                        <h3 class="text-3xl md:text-5xl font-bold mb-8 text-white">¿Por qué elegir nuestra clínica?</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0 mt-1">
+                                    <i class="fa-solid fa-user-doctor text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-white mb-2">Atención Personalizada</h4>
+                                    <p class="text-gray-300">No eres un número más. Nos tomamos el tiempo para explicarte tu diagnóstico y plan de tratamiento detalladamente.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0 mt-1">
+                                    <i class="fa-solid fa-spray-can-sparkles text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-white mb-2">Equipamiento Moderno</h4>
+                                    <p class="text-gray-300">Utilizamos materiales de alta calidad y tecnología actualizada para garantizar resultados duraderos y estéticos.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0 mt-1">
+                                    <i class="fa-solid fa-map-location-dot text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-white mb-2">Ubicación Céntrica</h4>
+                                    <p class="text-gray-300">Fácil acceso en Managua, en la zona del 27 de Mayo, con instalaciones cómodas y seguras.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full lg:w-1/2 relative" data-aos="zoom-in">
+                        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=1000" alt="Consultorio Dental" class="rounded-3xl shadow-2xl border border-gray-700">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ubicacion" class="py-24 bg-background">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col lg:flex-row border border-gray-100">
+                    
+                    <!-- Contact Info -->
+                    <div class="w-full lg:w-1/3 bg-primary p-10 text-white flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-3xl font-bold mb-8 text-white">Contáctanos</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-start gap-4">
+                                    <i class="fa-solid fa-location-dot text-2xl mt-1 opacity-80"></i>
+                                    <div>
+                                        <h4 class="font-bold text-lg">Dirección</h4>
+                                        <p class="text-white/80 mt-1">De Fenicotaxi 27 de Mayo, 1 cuadra al sur y media cuadra arriba. Managua, Nicaragua.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i class="fa-solid fa-phone text-2xl mt-1 opacity-80"></i>
+                                    <div>
+                                        <h4 class="font-bold text-lg">WhatsApp / Llamadas</h4>
+                                        <p class="text-white/80 mt-1">+505 8402 6370</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i class="fa-solid fa-envelope text-2xl mt-1 opacity-80"></i>
+                                    <div>
+                                        <h4 class="font-bold text-lg">Correo Electrónico</h4>
+                                        <p class="text-white/80 mt-1">luis.campos.cb94@gmail.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="w-full lg:w-2/3 p-10">
+                        <h3 class="text-2xl font-bold mb-2">Solicita Información</h3>
+                        <p class="text-text/70 mb-8">Déjanos tus datos y te contactaremos para agendar tu cita.</p>
+                        
+                        <form id="contact-form" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-text mb-2">Nombre Completo</label>
+                                    <input type="text" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors bg-background">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-text mb-2">Teléfono / WhatsApp</label>
+                                    <input type="tel" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors bg-background">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-text mb-2">Motivo de consulta</label>
+                                <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors bg-background">
+                                    <option>Limpieza / Revisión General</option>
+                                    <option>Dolor / Emergencia</option>
+                                    <option>Estética (Blanqueamiento, Carillas)</option>
+                                    <option>Presupuesto / Otro</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-primary w-full py-4 text-lg">
+                                Enviar Solicitud <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-heading text-white pt-16 pb-8 border-t-4 border-primary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8 border-b border-gray-700 pb-8">
+                <div class="flex items-center gap-2 mb-6 md:mb-0">
+                    <i class="fa-solid fa-tooth text-2xl text-primary"></i>
+                    <span class="font-heading font-bold text-2xl text-white">Arual<span class="text-primary">Dent</span></span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://wa.me/50584026370" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="text-center md:text-left flex flex-col md:flex-row justify-between text-gray-400 text-sm">
+                <p>&copy; 2026 Clínica Dental ArualDent. Managua, Nicaragua.</p>
+                <p class="mt-2 md:mt-0">Sonrisas sanas, tratamientos sin dolor.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal (Replaces alert) -->
+    <div id="success-modal">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full text-center mx-4 relative transform scale-95 transition-transform duration-300">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-500 text-3xl mx-auto mb-4">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-heading mb-2">¡Mensaje Enviado!</h3>
+            <p class="text-text/70 mb-6">Hemos recibido tu solicitud. Nos pondremos en contacto contigo pronto.</p>
+            <button id="close-modal-btn" class="btn-primary w-full py-3">Cerrar</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 1. Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+
+        // 2. Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 3. Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('py-2');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('py-2');
+            }
+        });
+
+        // 4. Form Submission Modal handling (Avoiding alert() rule)
+        const contactForm = document.getElementById('contact-form');
+        const successModal = document.getElementById('success-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent page reload
+            successModal.classList.add('active');
+            
+            // Optional: Animate modal entry
+            setTimeout(() => {
+                successModal.querySelector('div').classList.remove('scale-95');
+                successModal.querySelector('div').classList.add('scale-100');
+            }, 10);
+            
+            contactForm.reset(); // Clear form fields
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            successModal.querySelector('div').classList.remove('scale-100');
+            successModal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                successModal.classList.remove('active');
+            }, 200);
+        });
+
+        // Smooth scroll for anchor links natively
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
