@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K Nails & Beauty | Managua, Nicaragua</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e11d48', // rose-600
+                        secondary: '#4f4f4f',
+                        accent: '#fce7f3', // rose-100
+                        background: '#ffffff',
+                        text: '#27272a'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        heading: ['Cormorant Garamond', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #fafafa; }
+        .page-section { opacity: 0; transition: opacity 0.6s ease; }
+        .page-section.active { opacity: 1; }
+        
+        .btn-beauty {
+            background: #e11d48;
+            color: white;
+            padding: 1rem 2.5rem;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+        .btn-beauty:hover { background: #be123c; }
+
+        .floating-whatsapp {
+            position: fixed; bottom: 2rem; right: 2rem; z-index: 50;
+            background: #25D366; color: white; width: 65px; height: 65px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .floating-whatsapp:hover { transform: scale(1.1); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-40 bg-white/90 backdrop-blur shadow-sm py-4">
+        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+            <span class="font-heading text-3xl font-bold text-primary italic">K Nails</span>
+            <div class="hidden md:flex gap-8 font-medium text-sm tracking-widest text-text">
+                <a href="#inicio" class="hover:text-primary">INICIO</a>
+                <a href="#servicios" class="hover:text-primary">SERVICIOS</a>
+                <a href="#contacto" class="hover:text-primary">CONTACTO</a>
+            </div>
+            <a href="https://wa.me/50588880000" class="text-sm font-bold border-b-2 border-primary">AGENDA AQUÍ</a>
+        </div>
+    </nav>
+
+    <a href="https://wa.me/50588880000" target="_blank" class="floating-whatsapp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <main>
+        <!-- Hero -->
+        <section id="inicio" class="page-section active pt-32 pb-20">
+            <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h1 class="font-heading text-6xl md:text-7xl font-bold text-text mb-6 italic">Tu mejor versión comienza aquí.</h1>
+                    <p class="text-secondary text-lg mb-8 leading-relaxed">Especialistas en uñas, cuidado capilar y estética integral en el corazón de Managua. Déjanos consentirte.</p>
+                    <button class="btn-beauty">Reserva tu Cita</button>
+                </div>
+                <div data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=800" class="rounded-tl-[100px] rounded-br-[100px] shadow-2xl" alt="Salón">
+                </div>
+            </div>
+        </section>
+
+        <!-- Servicios -->
+        <section id="servicios" class="page-section py-20 bg-accent/30">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="font-heading text-5xl font-bold text-center mb-16 italic text-primary">Nuestros Servicios</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-sm text-center">
+                        <i class="fa-solid fa-gem text-primary text-3xl mb-4"></i>
+                        <h3 class="font-heading text-2xl font-bold mb-4">Uñas y Manicura</h3>
+                        <p class="text-secondary">Diseños en gel, acrílico y spa de manos. Calidad que dura semanas.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-sm text-center">
+                        <i class="fa-solid fa-scissors text-primary text-3xl mb-4"></i>
+                        <h3 class="font-heading text-2xl font-bold mb-4">Cuidado Capilar</h3>
+                        <p class="text-secondary">Blower, color, cortes modernos y tratamientos de hidratación profunda.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-sm text-center">
+                        <i class="fa-solid fa-face-smile text-primary text-3xl mb-4"></i>
+                        <h3 class="font-heading text-2xl font-bold mb-4">Estética Facial</h3>
+                        <p class="text-secondary">Limpiezas profundas, depilación y cuidado de cejas para resaltar tu mirada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto -->
+        <section id="contacto" class="page-section py-20">
+            <div class="max-w-4xl mx-auto px-4 bg-white p-12 rounded-2xl shadow-xl text-center border-t-8 border-primary">
+                <h2 class="font-heading text-4xl font-bold mb-6 italic">¿Lista para brillar?</h2>
+                <p class="text-secondary mb-8">Estamos ubicados cerca del Pali P del H. Envíanos un mensaje y coordinamos tu próximo look.</p>
+                <a href="https://wa.me/50588880000" class="btn-beauty">Contactar por WhatsApp</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-10 text-center text-secondary text-sm">
+        <p>&copy; 2026 K Nails Managua. Belleza y estilo profesional.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
+</body>
+</html>
